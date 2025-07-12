@@ -1,0 +1,85 @@
+openapi: 3.0.4
+info:
+  title: Product Inventory API
+  version: 1.0.0
+  description: A simple API to manage products in a warehouse
+
+servers:
+  - url: http://localhost:8080/products
+    description: local Development Server
+
+paths:
+  /products:
+    get:
+      summary: Get all products
+      responses:
+        '200':
+          description: A list of all products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/product'
+    post:
+      summary: Add a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/product'
+      responses:
+        '201':
+          description: Product added successfully
+  /product/{id}:
+    get:
+      summary: Get a product filtered by the ID
+      parameters:
+        - in: path
+          name : id
+          schema:
+            type: integer
+          required: true
+          description: The product ID
+      responses:
+        '200':
+          description: a single product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/product'
+        '400':
+          description: product not found
+
+components:
+  schemas:
+    product:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        productname:
+          type: string
+          example: iphone
+        supplierid:
+          type: string
+          example: S1234
+        Skuid:
+          type: string
+          example: PR-1256
+        productcategory:
+          type: string
+          example: phones
+        quantity:
+          type: integer
+          example: 6
+        createdat:
+          type: string
+          format: date-time
+          example: 2025-07-11T21:30:00Z
+        updatedat:
+          type: string
+          format: date-time
+          example: 2025-07-11T21:30:00Zv
