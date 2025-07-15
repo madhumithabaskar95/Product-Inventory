@@ -5,7 +5,7 @@ info:
   description: A simple API to manage products in a warehouse
 
 servers:
-  - url: http://localhost:8080/products
+  - url: http://localhost:8080/
     description: local Development Server
 
 paths:
