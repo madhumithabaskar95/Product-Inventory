@@ -38,6 +38,8 @@ paths:
           description: Product added successfully
   /product/{id}:
     get:
+      tags:
+        - Products
       summary: Get a product filtered by the ID
       parameters:
         - in: path
