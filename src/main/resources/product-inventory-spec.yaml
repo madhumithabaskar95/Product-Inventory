@@ -11,6 +11,7 @@ servers:
 paths:
   /products:
     get:
+      tags : Products
       summary: Get all products
       responses:
         '200':
