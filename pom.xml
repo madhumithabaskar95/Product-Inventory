@@ -28,8 +28,14 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<openapi-generator.plugin.version>6.6.0</openapi-generator.plugin.version>
+
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
@@ -66,23 +72,28 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web-services</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.openapitools</groupId>
+			<artifactId>jackson-databind-nullable</artifactId>
+			<version>0.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.7.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-docker-compose</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
+			<version>5.1.49</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -103,6 +114,11 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.0.2</version>
 		</dependency>
 	</dependencies>
 
@@ -132,6 +148,64 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+			<groupId>org.openapitools</groupId>
+			<artifactId>openapi-generator-maven-plugin</artifactId>
+			<version>${openapi-generator.plugin.version}</version>
+			<configuration>
+				<output>${project.build.directory}/generated-sources/openapi</output>
+				<generatorName>spring</generatorName>
+				<library>spring-boot</library>
+				<generateApis>false</generateApis>
+				<generateApiTests>false</generateApiTests>
+				<generateApiDocumentation>false</generateApiDocumentation>
+				<generateSupportingFiles>false</generateSupportingFiles>
+				<generateModelDocumentation>false</generateModelDocumentation>
+				<generateModelTests>false</generateModelTests>
+				<additionalProperties>removeEnumValuePrefix=false</additionalProperties>
+				<typeMappings>
+					<typeMapping>date=LocalDate</typeMapping>
+					<typeMapping>time=LocalTime</typeMapping>
+					<typeMapping>local-date-time=LocalDateTime</typeMapping>
+				</typeMappings>
+				<importMappings>
+					<importMapping>LocalDate=java.time.LocalDate</importMapping>
+					<importMapping>LocalTime=java.time.LocalTime</importMapping>
+					<importMapping>LocalDateTime=java.time.LocalDateTime</importMapping>
+				</importMappings>
+				<configOptions>
+					<dateLibrary>java8</dateLibrary>
+					<interfaceOnly>true</interfaceOnly>
+					<skipDefaultInterface>true</skipDefaultInterface>
+					<useBeanValidation>true</useBeanValidation>
+					<performBeanValidation>false</performBeanValidation>
+					<useOptional>false</useOptional>
+					<useJakartaEe>true</useJakartaEe>
+					<openApiNullable>false</openApiNullable>
+					<useTags>true</useTags>
+					<useSpringBoot3>true</useSpringBoot3>
+					<booleanGetterPrefix>is</booleanGetterPrefix>
+					<!--suppress UnresolvedMavenProperty -->
+					<additionalModelTypeAnnotations>@lombok.Builder(toBuilder=true);@lombok.NoArgsConstructor;@lombok.AllArgsConstructor</additionalModelTypeAnnotations>
+					<generatedConstructorWithRequiredArgs>false</generatedConstructorWithRequiredArgs>
+				</configOptions>
+			</configuration>
+			<executions>
+				<execution>
+					<id>product-inventory-api-model</id>
+					<goals>
+						<goal>generate</goal>
+					</goals>
+					<configuration>
+						<generateApis>true</generateApis>
+						<inputSpec>${project.basedir}/src/main/resources/product-inventory-spec.yaml</inputSpec>
+						<modelPackage>com.springbootapplication.productinventory.model</modelPackage>
+						<apiPackage>com.springbootapplication.productinventory.api</apiPackage>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+
 		</plugins>
 	</build>
 

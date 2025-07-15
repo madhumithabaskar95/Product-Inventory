@@ -66,26 +66,24 @@ components:
         id:
           type: integer
           example: 1
-        productname:
+        productName:
           type: string
           example: iphone
-        supplierid:
+        supplierId:
           type: string
           example: S1234
-        Skuid:
+        SkuId:
           type: string
           example: PR-1256
-        productcategory:
+        productCategory:
           type: string
           example: phones
         quantity:
           type: integer
           example: 6
-        createdat:
-          type: string
-          format: date-time
+        createdAt:
+          type: date
           example: 2025-07-11T21:30:00Z
-        updatedat:
-          type: string
-          format: date-time
+        updatedAt:
+          type: date
           example: 2025-07-11T21:30:00Zv
