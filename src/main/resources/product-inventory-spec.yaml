@@ -11,6 +11,8 @@ servers:
 paths:
   /products:
     get:
+      tags:
+        - Products
       summary: Get all products
       responses:
         '200':
@@ -22,6 +24,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/product'
     post:
+      tags:
+        - Products
       summary: Add a new product
       requestBody:
         required: true
