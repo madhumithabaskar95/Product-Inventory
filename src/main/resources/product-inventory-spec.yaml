@@ -22,6 +22,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/product'
     post:
+       tags : Products
       summary: Add a new product
       requestBody:
         required: true
