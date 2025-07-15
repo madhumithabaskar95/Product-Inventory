@@ -5,12 +5,14 @@ info:
   description: A simple API to manage products in a warehouse
 
 servers:
-  - url: http://localhost:8080/products
+  - url: http://localhost:8080/
     description: local Development Server
 
 paths:
   /products:
     get:
+      tags:
+        - Products
       summary: Get all products
       responses:
         '200':
@@ -22,6 +24,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/product'
     post:
+      tags:
+        - Products
       summary: Add a new product
       requestBody:
         required: true
@@ -34,6 +38,8 @@ paths:
           description: Product added successfully
   /product/{id}:
     get:
+      tags:
+        - Products
       summary: Get a product filtered by the ID
       parameters:
         - in: path
