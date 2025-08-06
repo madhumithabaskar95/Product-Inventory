@@ -1,7 +1,9 @@
 package com.springbootapplication.productinventory.controller;
+
+
+import com.springbootapplication.productinventory.Service.ProductService;
 import com.springbootapplication.productinventory.api.ProductsApi;
 import com.springbootapplication.productinventory.model.Product;
-import com.springbootapplication.productinventory.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +17,7 @@ public class ProductController implements ProductsApi {
 ProductService productService;
 
     @Override
-    public ResponseEntity<Product> productIdGet(Integer id) {
+    public ResponseEntity<Product> productsIdGet(Integer id) {
        Product product=productService.getProductById(id);
        if(product==null)
        {

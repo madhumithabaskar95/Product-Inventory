@@ -1,0 +1,28 @@
+meta {
+  name: Add product
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:9087/products
+  body: json
+  auth: inherit
+}
+
+headers {
+  content-Type: application/json
+}
+
+body:json {
+  {
+    "id": 4,
+    "productName": "LemonDrizzleCake",
+    "supplierId": "C501",
+    "skuId": "AF-2347",
+    "productCategory": "Food",
+    "quantity": 25,
+    "createdAt": "2025-08-05",
+    "updatedAt": ""
+  }
+}

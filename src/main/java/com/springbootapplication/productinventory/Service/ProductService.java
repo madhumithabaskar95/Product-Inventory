@@ -1,5 +1,7 @@
 package com.springbootapplication.productinventory.Service;
 
+import com.springbootapplication.productinventory.Entity.ProductEntity;
+import com.springbootapplication.productinventory.Mapper.ProductMapper;
 import com.springbootapplication.productinventory.model.Product;
 import com.springbootapplication.productinventory.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +17,25 @@ import java.util.Optional;
 public class ProductService {
     @Autowired
 ProductRepository productrepository;
+    @Autowired
+    ProductMapper productMapper;
     public List<Product> getAllProducts()
     {
         List<Product> allProductsList=new ArrayList<>();
-        productrepository.findAll().forEach(allProductsList::add);
+        productrepository.findAll().forEach(entity ->allProductsList.add(productMapper.toDto(entity)));
         return allProductsList;
     }
 
     public Product getProductById(int productId)
     {
 
-        return productrepository.findById(productId).orElse(null);
+        return productrepository.findById(productId).map(productMapper::toDto).orElse(null);
     }
 
     public ResponseEntity<Void> addProduct(Product product)
     {
-         productrepository.save(product);
+        ProductEntity productEntity=productMapper.toEntity(product);
+         productrepository.save(productEntity);
          return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
